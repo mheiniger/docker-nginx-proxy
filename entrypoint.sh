@@ -26,7 +26,11 @@ if [ "$PROTOCOL" = "HTTP" ]; then
 cat <<EOF >>/etc/nginx/nginx.conf
 
 http {
-  access_log /var/log/nginx/access.log;
+  log_format main '\$proxy_add_x_forwarded_for - \$remote_user [\$time_local] '
+'"\$request" \$status \$body_bytes_sent "\$http_referer" '
+'"\$http_user_agent"' ;
+
+  access_log /var/log/nginx/access.log main;
   error_log /var/log/nginx/error.log;
 
   server {
