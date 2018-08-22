@@ -33,7 +33,7 @@ http {
     location / {
       proxy_pass http://${UPSTREAM}:${UPSTREAM_PORT};
       ${SET_HOST_HEADER}
-      proxy_set_header X-Forwarded-For \$remote_addr;
+      proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
     }
   }
 }
